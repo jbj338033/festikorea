@@ -46,9 +46,20 @@ export const fetchFestivals = async (params: FestivalFilterParams = {}): Promise
 };
 
 export const fetchFestivalById = async (contentId: string): Promise<Festival | null> => {
+  const cachedData = sessionStorage.getItem(`festival_${contentId}`);
+  if (cachedData) {
+    return JSON.parse(cachedData);
+  }
+
   try {
     const festivals = await fetchFestivals({ numOfRows: 1000 });
-    return festivals.find(f => f.contentid === contentId) || null;
+    const festival = festivals.find(f => f.contentid === contentId) || null;
+
+    if (festival) {
+      sessionStorage.setItem(`festival_${contentId}`, JSON.stringify(festival));
+    }
+
+    return festival;
   } catch (error) {
     console.error('Festival Detail Error:', error);
     throw new Error('축제 상세 정보를 불러오는데 실패했습니다.');

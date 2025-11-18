@@ -3,19 +3,19 @@ import { useTranslation } from 'react-i18next';
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
 
-  const toggleLanguage = () => {
-    const newLang = i18n.language === 'ko' ? 'en' : 'ko';
-    i18n.changeLanguage(newLang);
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    i18n.changeLanguage(e.target.value);
   };
 
   return (
-    <button
-      onClick={toggleLanguage}
-      className="px-4 py-2 rounded-lg bg-secondary text-white hover:bg-secondary-hover transition-colors"
-      aria-label="Toggle language"
+    <select
+      value={i18n.language}
+      onChange={handleChange}
+      className="text-sm text-gray-600 bg-transparent border-none outline-none cursor-pointer hover:text-primary transition-colors"
     >
-      {i18n.language === 'ko' ? 'EN' : 'KO'}
-    </button>
+      <option value="ko">KO</option>
+      <option value="en">EN</option>
+    </select>
   );
 };
 

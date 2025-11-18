@@ -48,16 +48,16 @@ export default function FestivalFilter({
   ];
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-6">
+    <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-xs font-medium text-gray-500 mb-2">
             {t('festival.region')}
           </label>
           <select
             value={selectedRegion}
             onChange={(e) => onRegionChange(e.target.value)}
-            className="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all"
           >
             {regions.map((region) => (
               <option key={region.code} value={region.code}>
@@ -68,13 +68,13 @@ export default function FestivalFilter({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-xs font-medium text-gray-500 mb-2">
             {t('festival.status')}
           </label>
           <select
             value={selectedStatus}
             onChange={(e) => onStatusChange(e.target.value)}
-            className="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all"
           >
             {statusOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -85,7 +85,7 @@ export default function FestivalFilter({
         </div>
 
         <div className="sm:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-xs font-medium text-gray-500 mb-2">
             {t('common.search')}
           </label>
           <input
@@ -93,7 +93,7 @@ export default function FestivalFilter({
             value={searchKeyword}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder={t('festival.searchPlaceholder')}
-            className="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all"
           />
         </div>
       </div>

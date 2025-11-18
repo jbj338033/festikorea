@@ -59,87 +59,89 @@ export default function FestivalDetailPage() {
 
   return (
     <>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
-          {festival.firstimage && (
-            <div className="aspect-video bg-gray-200">
-              <img
-                src={festival.firstimage}
-                alt={festival.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          )}
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="bg-white rounded-3xl border border-gray-200 overflow-hidden mb-8">
+            {festival.firstimage && (
+              <div className="aspect-[21/9] bg-gray-100">
+                <img
+                  src={festival.firstimage}
+                  alt={festival.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
 
-          <div className="p-6 sm:p-8">
-            <div className="flex justify-between items-start mb-4">
-              <h1 className="text-3xl font-bold text-gray-900">
-                {festival.title}
-              </h1>
-              <FavoriteButton
-                festivalId={festival.contentid}
-                festivalName={festival.title}
-                festivalImage={festival.firstimage}
-                onLoginRequired={() => setShowAuthModal(true)}
-              />
-            </div>
-
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-sm font-medium text-gray-500 mb-1">{t('festival.festivalPeriod')}</h3>
-                <p className="text-lg text-gray-900">
-                  {formatDate(festival.eventstartdate)} ~ {formatDate(festival.eventenddate)}
-                </p>
+            <div className="p-8 sm:p-10">
+              <div className="flex justify-between items-start mb-6">
+                <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+                  {festival.title}
+                </h1>
+                <FavoriteButton
+                  festivalId={festival.contentid}
+                  festivalName={festival.title}
+                  festivalImage={festival.firstimage}
+                  onLoginRequired={() => setShowAuthModal(true)}
+                />
               </div>
 
-              <div>
-                <h3 className="text-sm font-medium text-gray-500 mb-1">{t('festival.venue')}</h3>
-                <p className="text-lg text-gray-900">{festival.addr1}</p>
-                {festival.addr2 && <p className="text-gray-600">{festival.addr2}</p>}
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xs font-medium text-gray-400 mb-2">{t('festival.festivalPeriod')}</h3>
+                  <p className="text-base text-gray-900">
+                    {formatDate(festival.eventstartdate)} ~ {formatDate(festival.eventenddate)}
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-xs font-medium text-gray-400 mb-2">{t('festival.venue')}</h3>
+                  <p className="text-base text-gray-900">{festival.addr1}</p>
+                  {festival.addr2 && <p className="text-sm text-gray-500 mt-1">{festival.addr2}</p>}
+                </div>
+
+                {festival.tel && (
+                  <div>
+                    <h3 className="text-xs font-medium text-gray-400 mb-2">{t('festival.inquiry')}</h3>
+                    <p className="text-base text-gray-900">{festival.tel}</p>
+                  </div>
+                )}
+
+                {festival.overview && (
+                  <div>
+                    <h3 className="text-xs font-medium text-gray-400 mb-2">{t('festival.introduction')}</h3>
+                    <div
+                      className="text-sm text-gray-600 leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: festival.overview }}
+                    />
+                  </div>
+                )}
               </div>
-
-              {festival.tel && (
-                <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">{t('festival.inquiry')}</h3>
-                  <p className="text-lg text-gray-900">{festival.tel}</p>
-                </div>
-              )}
-
-              {festival.overview && (
-                <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">{t('festival.introduction')}</h3>
-                  <div
-                    className="text-gray-700 leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: festival.overview }}
-                  />
-                </div>
-              )}
             </div>
           </div>
-        </div>
 
-        <div className="mb-8">
-          <ReviewForm
-            festivalId={festival.contentid}
-            festivalName={festival.title}
-            onSubmit={handleReviewSubmit}
-            onLoginRequired={() => setShowAuthModal(true)}
-          />
-        </div>
-
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            {t('review.title')} ({reviews.length})
-          </h2>
-          {reviewsLoading ? (
-            <Loading />
-          ) : (
-            <ReviewList
-              reviews={reviews}
-              onUpdate={updateReview}
-              onDelete={deleteReview}
+          <div className="mb-8">
+            <ReviewForm
+              festivalId={festival.contentid}
+              festivalName={festival.title}
+              onSubmit={handleReviewSubmit}
+              onLoginRequired={() => setShowAuthModal(true)}
             />
-          )}
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              {t('review.title')} <span className="text-gray-400">({reviews.length})</span>
+            </h2>
+            {reviewsLoading ? (
+              <Loading />
+            ) : (
+              <ReviewList
+                reviews={reviews}
+                onUpdate={updateReview}
+                onDelete={deleteReview}
+              />
+            )}
+          </div>
         </div>
       </div>
 

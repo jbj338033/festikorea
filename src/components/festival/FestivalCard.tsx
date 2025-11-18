@@ -15,29 +15,29 @@ export default function FestivalCard({ festival }: FestivalCardProps) {
   };
 
   return (
-    <Link to={`/festival/${festival.contentid}`}>
-      <div className="bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-        <div className="aspect-video bg-gray-200 overflow-hidden">
+    <Link to={`/festival/${festival.contentid}`} className="group">
+      <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-primary transition-all">
+        <div className="aspect-[4/3] bg-gray-100 overflow-hidden">
           {festival.firstimage ? (
             <img
               src={festival.firstimage}
               alt={festival.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400">
+            <div className="w-full h-full flex items-center justify-center text-gray-300 text-sm">
               {t('festival.noImage')}
             </div>
           )}
         </div>
-        <div className="p-4">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+        <div className="p-5">
+          <h3 className="text-base font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary transition-colors">
             {festival.title}
           </h3>
-          <p className="text-sm text-gray-600 mb-2 line-clamp-1">
+          <p className="text-sm text-gray-500 mb-3 line-clamp-1">
             {festival.addr1}
           </p>
-          <p className="text-sm text-gray-500">
+          <p className="text-xs text-gray-400">
             {formatDate(festival.eventstartdate)} ~ {formatDate(festival.eventenddate)}
           </p>
         </div>

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Festival } from '../types/festival';
 import { fetchFestivalById } from '../services/festivalApi';
@@ -24,7 +24,7 @@ export default function FestivalDetailPage() {
 
   const { reviews, loading: reviewsLoading, addReview, updateReview, deleteReview } = useReviews(id);
 
-  const loadFestival = async () => {
+  const loadFestival = useCallback(async () => {
     if (!id) return;
 
     try {
@@ -37,11 +37,11 @@ export default function FestivalDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, t]);
 
   useEffect(() => {
     loadFestival();
-  }, [id]);
+  }, [loadFestival]);
 
   const formatDate = (date: string) => {
     if (!date || date.length !== 8) return '';

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   collection,
   query,
@@ -10,7 +10,6 @@ import {
   doc,
   serverTimestamp,
   orderBy,
-  Timestamp,
 } from 'firebase/firestore';
 import { db } from '../services/firebase';
 import type { Review } from '../types/review';
@@ -21,7 +20,7 @@ export function useReviews(festivalId?: string) {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const loadReviews = async () => {
+  const loadReviews = useCallback(async () => {
     try {
       setLoading(true);
       let q;
@@ -56,11 +55,11 @@ export function useReviews(festivalId?: string) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [festivalId, user]);
 
   useEffect(() => {
     loadReviews();
-  }, [festivalId, user]);
+  }, [loadReviews]);
 
   const addReview = async (
     festivalId: string,

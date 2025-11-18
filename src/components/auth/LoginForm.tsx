@@ -1,4 +1,5 @@
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -23,8 +24,8 @@ export default function LoginForm({ onSuccess, onSwitchToSignup }: LoginFormProp
     try {
       await login(email, password);
       onSuccess();
-    } catch (err: any) {
-      setError(err.message || t('auth.loginFailed'));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t('auth.loginFailed'));
     } finally {
       setLoading(false);
     }

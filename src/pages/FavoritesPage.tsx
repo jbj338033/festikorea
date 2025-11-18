@@ -9,7 +9,7 @@ export default function FavoritesPage() {
   const { user } = useAuth();
   const { favorites, loading, removeFavorite } = useFavorites();
 
-  const formatDate = (timestamp: any) => {
+  const formatDate = (timestamp: { toDate: () => Date } | undefined) => {
     if (!timestamp) return '';
     const date = timestamp.toDate();
     return date.toLocaleDateString('ko-KR');

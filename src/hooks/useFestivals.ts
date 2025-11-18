@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { Festival, FestivalFilterParams } from '../types/festival';
 import { fetchFestivals } from '../services/festivalApi';
 
@@ -7,7 +7,7 @@ export function useFestivals(filters: FestivalFilterParams = {}) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadFestivals = async () => {
+  const loadFestivals = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -18,11 +18,11 @@ export function useFestivals(filters: FestivalFilterParams = {}) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters]);
 
   useEffect(() => {
     loadFestivals();
-  }, [JSON.stringify(filters)]);
+  }, [loadFestivals]);
 
   return { festivals, loading, error, refetch: loadFestivals };
 }

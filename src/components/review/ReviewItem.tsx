@@ -25,7 +25,7 @@ export default function ReviewItem({ review, onUpdate, onDelete }: ReviewItemPro
     try {
       await onUpdate(review.id, editRating, editContent);
       setIsEditing(false);
-    } catch (error) {
+    } catch {
       alert(t('review.updateFailed'));
     } finally {
       setLoading(false);
@@ -38,14 +38,14 @@ export default function ReviewItem({ review, onUpdate, onDelete }: ReviewItemPro
     setLoading(true);
     try {
       await onDelete(review.id);
-    } catch (error) {
+    } catch {
       alert(t('review.deleteFailed'));
     } finally {
       setLoading(false);
     }
   };
 
-  const formatDate = (timestamp: any) => {
+  const formatDate = (timestamp: { toDate: () => Date } | undefined) => {
     if (!timestamp) return '';
     const date = timestamp.toDate();
     return date.toLocaleDateString('ko-KR');

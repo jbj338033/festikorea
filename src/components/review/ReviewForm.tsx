@@ -1,4 +1,5 @@
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import StarRating from './StarRating';
 import { useAuth } from '../../contexts/AuthContext';
@@ -11,8 +12,6 @@ interface ReviewFormProps {
 }
 
 export default function ReviewForm({
-  festivalId,
-  festivalName,
   onSubmit,
   onLoginRequired,
 }: ReviewFormProps) {

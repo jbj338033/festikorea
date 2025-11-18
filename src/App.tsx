@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import Layout from './components/common/Layout';
+import ProtectedRoute from './components/common/ProtectedRoute';
 import HomePage from './pages/HomePage';
 import FestivalDetailPage from './pages/FestivalDetailPage';
 import FavoritesPage from './pages/FavoritesPage';
@@ -14,8 +15,22 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/festival/:id" element={<FestivalDetailPage />} />
-            <Route path="/favorites" element={<FavoritesPage />} />
-            <Route path="/my-reviews" element={<MyReviewsPage />} />
+            <Route
+              path="/favorites"
+              element={
+                <ProtectedRoute>
+                  <FavoritesPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/my-reviews"
+              element={
+                <ProtectedRoute>
+                  <MyReviewsPage />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </Layout>
       </AuthProvider>
